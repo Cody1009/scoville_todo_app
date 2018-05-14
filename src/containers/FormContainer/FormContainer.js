@@ -25,6 +25,7 @@ const FormContainer = (props) => {
                 deleteTodo={props.deleteTodo}
                 updateTodo={props.updateTodo}
                 toggleStatus={props.toggleStatus}
+                notCompletedTodosNum={props.notCompletedTodosNum}
             />
             <FooterForm delete={props.deleteTasks}/>
         </div>

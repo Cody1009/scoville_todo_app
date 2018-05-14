@@ -4,6 +4,14 @@
   background: paleturquoise;
 }
 
-.completed-todos p {
-  color: orangered;
+.not-finished{
+  margin-left: 10px;
+  color: red;
+  display: inline;
+}
+
+.finished{
+  margin-left: 10px;
+  color: olivedrab;
+  display: inline;
 }

@@ -4,13 +4,6 @@ import './CompletedTodo.css'
 const completedTodos = (props) => {
 
     const completed_todos_list = props.filterdTodos.map(todo => {
-        const doneTrueStyle ={
-            color: 'blue'
-        };
-
-        const doneFalseStyle = {
-            color:'red'
-        };
 
         return (
             <p key={todo.id}>
@@ -37,8 +30,7 @@ const completedTodos = (props) => {
                     Change Status!
                 </button>
 
-                <span style={ todo.done? doneTrueStyle: doneFalseStyle}> done status</span>
-
+                { todo.done? <p className="finished">this task is done!</p> : <p className="not-finished">    finish this task!</p>}
             </p>
 
         );
@@ -48,6 +40,7 @@ const completedTodos = (props) => {
         <div className="completed-todos">
             <h1>Done tasks!</h1>
             {completed_todos_list}
+            <p>{props.notCompletedTodosNum} items left</p>
         </div>
     )
 

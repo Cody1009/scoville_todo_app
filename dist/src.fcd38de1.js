@@ -19116,15 +19116,24 @@ var listForm = function listForm(props) {
                 },
                 'Change Status!'
             ),
-            _react2.default.createElement(
-                'span',
-                { style: todo.done ? doneTrueStyle : doneFalseStyle, __source: {
+            todo.done ? _react2.default.createElement(
+                'p',
+                { className: 'finished', __source: {
                         fileName: _jsxFileName,
                         lineNumber: 42
                     },
                     __self: _this
                 },
-                ' done status'
+                'this task is done!'
+            ) : _react2.default.createElement(
+                'p',
+                { className: 'not-finished', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 42
+                    },
+                    __self: _this
+                },
+                'finish this task!'
             )
         );
     });
@@ -19275,19 +19284,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var completedTodos = function completedTodos(props) {
 
     var completed_todos_list = props.filterdTodos.map(function (todo) {
-        var doneTrueStyle = {
-            color: 'blue'
-        };
-
-        var doneFalseStyle = {
-            color: 'red'
-        };
 
         return _react2.default.createElement(
             'p',
             { key: todo.id, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 16
+                    lineNumber: 9
                 },
                 __self: _this
             },
@@ -19301,7 +19303,7 @@ var completedTodos = function completedTodos(props) {
                 //onChange={props.contentChanged}
                 , __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 18
+                    lineNumber: 11
                 },
                 __self: _this
             }),
@@ -19311,7 +19313,7 @@ var completedTodos = function completedTodos(props) {
                         props.deleteTodo(todo.id);
                     }, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 26
+                        lineNumber: 19
                     },
                     __self: _this
                 },
@@ -19325,21 +19327,30 @@ var completedTodos = function completedTodos(props) {
                     },
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 32
+                        lineNumber: 25
                     },
                     __self: _this
                 },
                 'Change Status!'
             ),
-            _react2.default.createElement(
-                'span',
-                { style: todo.done ? doneTrueStyle : doneFalseStyle, __source: {
+            todo.done ? _react2.default.createElement(
+                'p',
+                { className: 'finished', __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 40
+                        lineNumber: 33
                     },
                     __self: _this
                 },
-                ' done status'
+                'this task is done!'
+            ) : _react2.default.createElement(
+                'p',
+                { className: 'not-finished', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 33
+                    },
+                    __self: _this
+                },
+                '    finish this task!'
             )
         );
     });
@@ -19348,7 +19359,7 @@ var completedTodos = function completedTodos(props) {
         'div',
         { className: 'completed-todos', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 48
+                lineNumber: 40
             },
             __self: _this
         },
@@ -19357,13 +19368,25 @@ var completedTodos = function completedTodos(props) {
             {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 49
+                    lineNumber: 41
                 },
                 __self: _this
             },
             'Done tasks!'
         ),
-        completed_todos_list
+        completed_todos_list,
+        _react2.default.createElement(
+            'p',
+            {
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 43
+                },
+                __self: _this
+            },
+            props.notCompletedTodosNum,
+            ' items left'
+        )
     );
 };
 
@@ -19436,6 +19459,7 @@ var FormContainer = function FormContainer(props) {
             deleteTodo: props.deleteTodo,
             updateTodo: props.updateTodo,
             toggleStatus: props.toggleStatus,
+            notCompletedTodosNum: props.notCompletedTodosNum,
             __source: {
                 fileName: _jsxFileName,
                 lineNumber: 23
@@ -19444,7 +19468,7 @@ var FormContainer = function FormContainer(props) {
         }),
         _react2.default.createElement(_FooterForm2.default, { 'delete': props.deleteTasks, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 29
+                lineNumber: 30
             },
             __self: _this
         })
@@ -19567,11 +19591,16 @@ var App = function (_Component) {
                 return todo.done === true;
             });
 
+            var notCompletedTodos = this.state.todos.filter(function (todo) {
+                return todo.done === false;
+            });
+            var notCompletedTodosNum = notCompletedTodos.length;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'App', __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 97
+                        lineNumber: 102
                     },
                     __self: this
                 },
@@ -19584,9 +19613,10 @@ var App = function (_Component) {
                     updateTodo: this.updateTodo,
                     toggleStatus: this.toggleStatus,
                     filterdTodos: filterdTodos,
+                    notCompletedTodosNum: notCompletedTodosNum,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 98
+                        lineNumber: 103
                     },
                     __self: this
                 })

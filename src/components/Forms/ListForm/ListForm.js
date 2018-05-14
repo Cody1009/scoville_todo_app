@@ -39,7 +39,7 @@ const listForm = (props) => {
                         Change Status!
                     </button>
 
-                    <span style={ todo.done? doneTrueStyle: doneFalseStyle}> done status</span>
+                    { todo.done? <p className="finished">this task is done!</p> : <p className="not-finished">finish this task!</p>}
 
                 </p>
 

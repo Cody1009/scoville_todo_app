@@ -93,6 +93,11 @@ class App extends Component {
             return todo.done === true;
         });
 
+        const notCompletedTodos =this.state.todos.filter(todo=>{
+            return todo.done === false;
+        })
+        const notCompletedTodosNum = notCompletedTodos.length;
+
         return (
             <div className="App">
                 <FormContainer
@@ -104,6 +109,7 @@ class App extends Component {
                     updateTodo={this.updateTodo}
                     toggleStatus={this.toggleStatus}
                     filterdTodos={filterdTodos}
+                    notCompletedTodosNum={notCompletedTodosNum}
                 />
             </div>
         )
