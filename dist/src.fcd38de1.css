@@ -1,0 +1,39 @@
+.form-container{
+  width: 800px;
+  height: 800px;
+  margin:0 auto ;
+}.header{
+  margin:0 auto;
+  text-align: center;
+  background: paleturquoise;
+}.list{
+  margin:0 auto;
+  text-align: center;
+  background: paleturquoise;
+}
+
+.list p {
+  color: blue;
+}.footer{
+  margin:0 auto;
+  text-align: center;
+  background: palegreen;
+}
+
+.task-status-list{
+  display: inline-flex;
+}
+
+.task-status-list a{
+  text-decoration: none;
+  color: blueviolet;
+  margin: 10px 20px;
+}.completed-todos{
+  margin:0 auto;
+  text-align: center;
+  background: paleturquoise;
+}
+
+.completed-todos p {
+  color: orangered;
+}

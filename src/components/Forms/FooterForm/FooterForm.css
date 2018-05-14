@@ -1,0 +1,15 @@
+.footer{
+  margin:0 auto;
+  text-align: center;
+  background: palegreen;
+}
+
+.task-status-list{
+  display: inline-flex;
+}
+
+.task-status-list a{
+  text-decoration: none;
+  color: blueviolet;
+  margin: 10px 20px;
+}

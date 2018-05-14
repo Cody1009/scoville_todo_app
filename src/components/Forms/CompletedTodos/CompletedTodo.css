@@ -1,0 +1,9 @@
+.completed-todos{
+  margin:0 auto;
+  text-align: center;
+  background: paleturquoise;
+}
+
+.completed-todos p {
+  color: orangered;
+}

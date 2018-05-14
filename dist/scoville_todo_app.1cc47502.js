@@ -1150,7 +1150,7 @@ if ('development' !== "production") {
     }
 
     /**
-     * @param {?*} children Children tree container.
+     * @param {?*} children Children tree containers.
      * @param {!string} nameSoFar Name of the key path so far.
      * @param {!function} callback Callback to invoke with each child found.
      * @param {?*} traverseContext Used to pass information throughout the traversal
@@ -1292,7 +1292,7 @@ if ('development' !== "production") {
      * The provided forEachFunc(child, index) will be called for each
      * leaf child.
      *
-     * @param {?*} children Children tree container.
+     * @param {?*} children Children tree containers.
      * @param {function(*, int)} forEachFunc
      * @param {*} forEachContext Context for forEachContext.
      */
@@ -1343,7 +1343,7 @@ if ('development' !== "production") {
      * The provided mapFunction(child, key, index) will be called for each
      * leaf child.
      *
-     * @param {?*} children Children tree container.
+     * @param {?*} children Children tree containers.
      * @param {function(*, int)} func The map function.
      * @param {*} context Context for mapFunction.
      * @return {object} Object containing the ordered map of results.
@@ -1363,7 +1363,7 @@ if ('development' !== "production") {
      *
      * See https://reactjs.org/docs/react-api.html#react.children.count
      *
-     * @param {?*} children Children tree container.
+     * @param {?*} children Children tree containers.
      * @return {number} The number of children.
      */
     function countChildren(children, context) {
@@ -5807,7 +5807,7 @@ if ('development' !== "production") {
 
         !(a.alternate === b) ? invariant(false, 'Return fibers should always be each others\' alternates. This error is likely caused by a bug in React. Please file an issue.') : void 0;
       }
-      // If the root is not a host container, we're in a disconnected tree. I.e.
+      // If the root is not a host containers, we're in a disconnected tree. I.e.
       // unmounted.
       !(a.tag === HostRoot) ? invariant(false, 'Unable to find node on an unmounted component.') : void 0;
       if (a.stateNode.current === a) {
@@ -6757,7 +6757,7 @@ if ('development' !== "production") {
      * they bubble to document.
      *
      * @param {string} registrationName Name of listener (e.g. `onClick`).
-     * @param {object} contentDocumentHandle Document which owns the container
+     * @param {object} contentDocumentHandle Document which owns the containers
      */
     function listenTo(registrationName, contentDocumentHandle) {
       var mountAt = contentDocumentHandle;
@@ -6821,7 +6821,7 @@ if ('development' !== "production") {
     }
 
     /**
-     * Get the next sibling within a container. This will walk up the
+     * Get the next sibling within a containers. This will walk up the
      * DOM if a node's siblings have been exhausted.
      *
      * @param {DOMElement|DOMTextNode} node
@@ -11402,7 +11402,7 @@ if ('development' !== "production") {
               // If children might have changed, we have to add them all to the set.
               appendAllChildrenToContainer(newChildSet, workInProgress);
               portalOrRoot.pendingChildren = newChildSet;
-              // Schedule an update on the container to swap out the container.
+              // Schedule an update on the containers to swap out the containers.
               markUpdate(workInProgress);
               finalizeContainerChildren(container, newChildSet);
             }
@@ -14899,7 +14899,7 @@ if ('development' !== "production") {
       }
 
       function updateContainerAtExpirationTime(element, container, parentComponent, currentTime, expirationTime, callback) {
-        // TODO: If this is a nested container, this won't be the root.
+        // TODO: If this is a nested containers, this won't be the root.
         var current = container.current;
 
         {
@@ -15628,7 +15628,7 @@ if ('development' !== "production") {
       }
     };
 
-    // SVG temp container for IE lacking innerHTML
+    // SVG temp containers for IE lacking innerHTML
     var reusableSVGContainer = void 0;
 
     /**
@@ -17018,7 +17018,7 @@ if ('development' !== "production") {
     function createElement$1(type, props, rootContainerElement, parentNamespace) {
       var isCustomComponentTag = void 0;
 
-      // We create tags in the namespace of their parent container, except HTML
+      // We create tags in the namespace of their parent containers, except HTML
       // tags get no namespace.
       var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
       var domElement = void 0;
@@ -18069,7 +18069,7 @@ if ('development' !== "production") {
         if (container._reactRootContainer && container.nodeType !== COMMENT_NODE) {
           var hostInstance = DOMRenderer.findHostInstanceWithNoPortals(container._reactRootContainer._internalRoot.current);
           if (hostInstance) {
-            !(hostInstance.parentNode === container) ? warning(false, 'render(...): It looks like the React-rendered content of this ' + 'container was removed without using React. This is not ' + 'supported and will cause errors. Instead, call ' + 'ReactDOM.unmountComponentAtNode to empty a container.') : void 0;
+            !(hostInstance.parentNode === container) ? warning(false, 'render(...): It looks like the React-rendered content of this ' + 'containers was removed without using React. This is not ' + 'supported and will cause errors. Instead, call ' + 'ReactDOM.unmountComponentAtNode to empty a containers.') : void 0;
           }
         }
 
@@ -18079,7 +18079,7 @@ if ('development' !== "production") {
 
         !(!hasNonRootReactChild || isRootRenderedBySomeReact) ? warning(false, 'render(...): Replacing React-rendered children with a new root ' + 'component. If you intended to update the children of this node, ' + 'you should instead have the existing children update their state ' + 'and render the new components instead of calling ReactDOM.render.') : void 0;
 
-        !(container.nodeType !== ELEMENT_NODE || !container.tagName || container.tagName.toUpperCase() !== 'BODY') ? warning(false, 'render(): Rendering components directly into document.body is ' + 'discouraged, since its children are often manipulated by third-party ' + 'scripts and browser extensions. This may lead to subtle ' + 'reconciliation issues. Try rendering into a container element created ' + 'for your app.') : void 0;
+        !(container.nodeType !== ELEMENT_NODE || !container.tagName || container.tagName.toUpperCase() !== 'BODY') ? warning(false, 'render(): Rendering components directly into document.body is ' + 'discouraged, since its children are often manipulated by third-party ' + 'scripts and browser extensions. This may lead to subtle ' + 'reconciliation issues. Try rendering into a containers element created ' + 'for your app.') : void 0;
       };
 
       warnOnInvalidCallback = function (callback, callerName) {
@@ -18640,7 +18640,7 @@ if ('development' !== "production") {
 
     function legacyRenderSubtreeIntoContainer(parentComponent, children, container, forceHydrate, callback) {
       // TODO: Ensure all entry points contain this check
-      !isValidContainer(container) ? invariant(false, 'Target container is not a DOM element.') : void 0;
+      !isValidContainer(container) ? invariant(false, 'Target containers is not a DOM element.') : void 0;
 
       {
         topLevelUpdateWarnings(container);
@@ -18688,7 +18688,7 @@ if ('development' !== "production") {
     function createPortal(children, container) {
       var key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-      !isValidContainer(container) ? invariant(false, 'Target container is not a DOM element.') : void 0;
+      !isValidContainer(container) ? invariant(false, 'Target containers is not a DOM element.') : void 0;
       // TODO: pass ReactDOM portal implementation as third argument
       return createPortal$1(children, container, null, key);
     }
@@ -18726,7 +18726,7 @@ if ('development' !== "production") {
         return legacyRenderSubtreeIntoContainer(parentComponent, element, containerNode, false, callback);
       },
       unmountComponentAtNode: function (container) {
-        !isValidContainer(container) ? invariant(false, 'unmountComponentAtNode(...): Target container is not a DOM element.') : void 0;
+        !isValidContainer(container) ? invariant(false, 'unmountComponentAtNode(...): Target containers is not a DOM element.') : void 0;
 
         if (container._reactRootContainer) {
           {
@@ -18749,10 +18749,10 @@ if ('development' !== "production") {
             var _rootEl = getReactRootElementInContainer(container);
             var hasNonRootReactChild = !!(_rootEl && getInstanceFromNode$1(_rootEl));
 
-            // Check if the container itself is a React root node.
+            // Check if the containers itself is a React root node.
             var isContainerReactRoot = container.nodeType === 1 && isValidContainer(container.parentNode) && !!container.parentNode._reactRootContainer;
 
-            !!hasNonRootReactChild ? warning(false, "unmountComponentAtNode(): The node you're attempting to unmount " + 'was rendered by React and is not a top-level container. %s', isContainerReactRoot ? 'You may have accidentally passed in a React root node instead ' + 'of its container.' : 'Instead, have the parent component update its state and ' + 'rerender in order to remove this component.') : void 0;
+            !!hasNonRootReactChild ? warning(false, "unmountComponentAtNode(): The node you're attempting to unmount " + 'was rendered by React and is not a top-level containers. %s', isContainerReactRoot ? 'You may have accidentally passed in a React root node instead ' + 'of its containers.' : 'Instead, have the parent component update its state and ' + 'rerender in order to remove this component.') : void 0;
           }
 
           return false;
