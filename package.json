@@ -17,10 +17,15 @@
   },
   "homepage": "https://github.com/Cody1009/scoville_todo_app#readme",
   "dependencies": {
+    "@material-ui/core": "^1.0.0-rc.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "material": "^0.2.6",
+    "material-ui": "^0.20.1",
     "parcel": "^1.8.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "^15.4.0 || ^16.0.0",
+    "react-dom": "^15.4.0 || ^16.0.0",
+    "react-tap-event-plugin": "^3.0.2",
+    "ui": "^0.2.4"
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",

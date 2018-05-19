@@ -1,5 +1,13 @@
 .header{
-  margin:0 auto;
   text-align: center;
-  background: paleturquoise;
+  box-sizing: border-box;
+  width: 800px;
+  height: 80px;
+  background: white;
+  box-shadow: 0 0 4px gray;
+  margin: 5px 0;
+  padding: 5px 5px;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
 }

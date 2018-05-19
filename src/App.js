@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import FormContainer from './containers/FormContainer/FormContainer';
+import {BrowserRouter} from 'react-router-dom';
 
 class App extends Component {
     constructor() {
@@ -17,13 +18,15 @@ class App extends Component {
     }
 
 
-    deleteTasksHandler = () => {
-        let afterDeleteTasks = [...this.state.todos];
-        afterDeleteTasks = [];
-        this.setState({todos: afterDeleteTasks});
+    deleteCompletedTasksHandler = () => {
+        const copiedTodos = [...this.state.todos];
+        const updateTodos = copiedTodos.filter(todo => {
+            return todo.done === false;
+        });
+        this.setState({todos: updateTodos});
     };
 
-    addTodo = (content_changed) => {
+    addTodoHandler = (content_changed) => {
         console.log("inside of add todo");
 
         this.setState({
@@ -38,16 +41,16 @@ class App extends Component {
         });
     };
 
-    deleteTodo =(id)=>{
+    deleteTodoHandler = (id) => {
         const copiedTodos = [...this.state.todos];
-        const updateTodos = copiedTodos.filter(todo=> {
+        const updateTodos = copiedTodos.filter(todo => {
             return todo.id !== id
         });
         this.setState({todos: updateTodos});
     };
 
-    updateTodo =(event, id) => {
-        const todoIndex = this.state.todos.findIndex(todo=>{
+    updateTodoHandler = (event, id) => {
+        const todoIndex = this.state.todos.findIndex(todo => {
             return todo.id === id;
         });
         const updatedTodo = {
@@ -56,62 +59,69 @@ class App extends Component {
 
         updatedTodo.content = event.target.value;
 
-        const todos =[...this.state.todos];
+        const todos = [...this.state.todos];
         todos[todoIndex] = updatedTodo;
 
         this.setState({todos: todos});
     };
 
-    toggleStatus=(id)=>{
+    toggleStatusHandler = (id) => {
 
-       //find todoItem which I want to change
-       const todoIndex = this.state.todos.findIndex(todo=> {
-           return todo.id === id;
-       });
+        //find todoItem which I want to change
+        const todoIndex = this.state.todos.findIndex(todo => {
+            return todo.id === id;
+        });
 
-       const updatedTodo = {
-           ...this.state.todos[todoIndex]
-       };
+        const updatedTodo = {
+            ...this.state.todos[todoIndex]
+        };
 
-       //change done status
-       const currentDoneStatus = updatedTodo.done; //false
+        //change done status
+        const currentDoneStatus = updatedTodo.done; //false
 
-       updatedTodo.done = !currentDoneStatus; //false -> true
+        updatedTodo.done = !currentDoneStatus; //false -> true
 
-       //save the change above safely
-       const todos = [...this.state.todos];
-       todos[todoIndex] = updatedTodo;
+        //save the change above safely
+        const todos = [...this.state.todos];
+        todos[todoIndex] = updatedTodo;
         this.setState({todos: todos});
     };
 
 
-
-
-
     render() {
-        const filterdTodos = this.state.todos.filter(todo=>{
+        //
+        const completedTodos = this.state.todos.filter(todo => {
             return todo.done === true;
         });
 
-        const notCompletedTodos =this.state.todos.filter(todo=>{
+        const notCompletedTodos = this.state.todos.filter(todo => {
             return todo.done === false;
-        })
+        });
+
+        const completedTodosNum = completedTodos.length;
+
         const notCompletedTodosNum = notCompletedTodos.length;
 
+
         return (
-            <div className="App">
-                <FormContainer
-                    todos={this.state.todos}
-                    // changed={(event) => this.contentChangedHandler(event, todo.id)}
-                    deleteTasks={this.deleteTasksHandler}
-                    addTodo={this.addTodo}
-                    deleteTodo={this.deleteTodo}
-                    updateTodo={this.updateTodo}
-                    toggleStatus={this.toggleStatus}
-                    filterdTodos={filterdTodos}
-                    notCompletedTodosNum={notCompletedTodosNum}
-                />
-            </div>
+
+            <BrowserRouter>
+                <div className="App">
+                    <FormContainer
+                        todos={this.state.todos}
+                        // changed={(event) => this.contentChangedHandler(event, todo.id)}
+                        deleteCompletedTasksHandler={this.deleteCompletedTasksHandler}
+                        addTodoHandler={this.addTodoHandler}
+                        deleteTodoHandler={this.deleteTodoHandler}
+                        updateTodoHandler={this.updateTodoHandler}
+                        toggleStatusHandler={this.toggleStatusHandler}
+                        completedTodos={completedTodos}
+                        completedTodosNum={completedTodosNum}
+                        notCompletedTodos={notCompletedTodos}
+                        notCompletedTodosNum={notCompletedTodosNum}
+                    />
+                </div>
+            </BrowserRouter>
         )
     }
 

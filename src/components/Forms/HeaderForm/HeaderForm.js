@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import './HeaderForm.css';
+import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    textField:{
+        width: 300,
+
+    }
+});
 
 class headerForm extends Component {
+
     constructor(props) {
         super(props);
         this.state = {content: ""};
@@ -12,25 +23,38 @@ class headerForm extends Component {
         this.setState({content: content_input});
     };
 
-    handleSubmit =(event)=>{
-        event.preventDefault();
-        this.props.addTodo(this.state.content);
-        this.setState({content: ''});
-    }
+    handleSubmitKeyPress =(event)=>{
+        if(event.key === 'Enter'){
+            event.preventDefault();
+            this.props.addTodoHandler(this.state.content);
+            this.setState({content: ''});
+        }
+    };
 
     render() {
+        const {classes} = this.props;
+
+
         return (
 
             <div className="header">
-                <h1>this is HEADER Form</h1>
-                <form action="todo-input" onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.content} onChange={this.handleChange}/>
-                    <input type="submit" value="Add to list"/>
+                <form action="todo-input" onKeyPress={this.handleSubmitKeyPress}>
+                    <TextField
+                        className={classes.textField}
+                        value={this.state.content}
+                        onChange={this.handleChange}
+                        placeholder="What needs to be done?"
+                        autoFocus
+
+                    />
                 </form>
             </div>
         );
     }
 }
 
+headerForm.propTypes={
+    classes: PropTypes.object.isRequired,
+};
 
-export default headerForm;
+export default withStyles(styles)(headerForm);

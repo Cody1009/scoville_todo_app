@@ -1,15 +1,19 @@
 .footer{
-  margin:0 auto;
-  text-align: center;
-  background: palegreen;
+  box-sizing: border-box;
+  width: 800px;
+  height: 80px;
+  background: white;
+  box-shadow: 0 0 4px gray;
+  margin: 5px 0;
+  padding: 5px 5px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.task-status-list{
-  display: inline-flex;
-}
-
-.task-status-list a{
+a{
   text-decoration: none;
-  color: blueviolet;
-  margin: 10px 20px;
+  font-weight:bold;
+  color: white ;
 }

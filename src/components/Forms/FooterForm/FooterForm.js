@@ -1,20 +1,80 @@
-import React from 'react';
-import  './FooterForm.css';
+import React, {Component} from 'react';
+import './FooterForm.css';
+import {Link} from 'react-router-dom';
+import {withStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
-const footerForm = (props) => (
-    <div className="footer">
-        <h1>this is Footer Form</h1>
-        <div className="task-status-list">
+const styles = theme => ({
+    button: {
+        backgroundColor: '#33adff',
+        boxShadow: '0 0 2px #e6e6e6;',
+        color: 'white',
+        textTransform: 'none'
+    }
+});
 
-                <a href="#">All</a>
-                <a href="#">Active</a>
-                <a href="#" >Completed</a>
-                <a href="#" onClick={props.delete}>Delete All Completed Tasks</a>
+const FooterForm = (props)=>{
+        const {classes} = props;
+        return (
+            <div className="footer">
 
-        </div>
 
-    </div>
+                <Link
+                    to={{pathname: "/",}}
+                >
+                    <Button
+                        variant="raised"
+                        className={classes.button}
+                    >
+                        All
+                    </Button>
 
-);
+                </Link>
 
-export default footerForm;
+                <Link to={{
+                    pathname: "/completed-todos",
+                }}
+                >
+                    <Button
+                        variant="raised"
+                        className={classes.button}
+                    >
+                        Completed
+                    </Button>
+
+                </Link>
+
+                <Link to={{
+                    pathname: "/not-completed-todos",
+
+                }}
+                >
+
+                    <Button
+                        variant="raised"
+                        className={classes.button}
+                    >
+                        Active
+                    </Button>
+
+                </Link>
+
+                {props.completedTodosNum > 0 ?
+                    <Button
+                        variant="raised"
+                        className={classes.button}
+                        onClick={props.deleteCompletedTasksHandler}
+                    >
+                        Delete Completed Tasks
+                    </Button>
+                        : null}
+
+
+            </div>
+        )
+
+
+}
+
+
+export default withStyles(styles)(FooterForm);
