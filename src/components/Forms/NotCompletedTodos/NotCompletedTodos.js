@@ -34,7 +34,7 @@ const notCompletedTodos = (props) => {
                 <Checkbox
                     className={classes.checkBox}
                     onChange={() => {
-                        props.toggleStatusHandler(todo.id)
+                        props.putTodoStatusHandler(todo.id, todo.content, todo.done)
                     }}
                     color="primary"
                 />
@@ -43,7 +43,7 @@ const notCompletedTodos = (props) => {
                     className={classes.textField}
                     label="Todo"
                     value={todo.content}
-                    onChange={(event) => props.updateTodoHandler(event, todo.id)}
+                    onChange={(event) => props.putTodoContentHandler(event, todo.id, todo.done)}
 
                 />
 

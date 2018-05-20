@@ -27,24 +27,29 @@ const styles = theme => ({
 
 const listForm = (props) => {
     const {classes} = props;
+    console.log('inside of list form');
+    console.log(props.todos);
     const todos_list = props.todos.map(todo => {
-
+        console.log('inside of todos_list generator');
+        console.log(todo);
         return (
 
             <div key={todo.id} className="todo-card">
                 <Checkbox
                     className={classes.checkBox}
                     onChange={() => {
-                        props.toggleStatusHandler(todo.id)
+                        props.putTodoStatusHandler(todo.id, todo.content, todo.done);
+
                     }}
                     color="primary"
+                    checked={todo.done}
                 />
 
                 <TextField
                     className={classes.textField}
                     label="Todo"
                     value={todo.content}
-                    onChange={(event) => props.updateTodoHandler(event, todo.id)}
+                    onChange={(event) => props.putTodoContentHandler(event, todo.id, todo.done)}
 
                 />
 

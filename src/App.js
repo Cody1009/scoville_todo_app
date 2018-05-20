@@ -5,53 +5,65 @@ import {BrowserRouter} from 'react-router-dom';
 class App extends Component {
     constructor() {
         super();
-
         this.state = {
             todos: [
-                //{id:1, content: "task1", done: false}
-
-            ],
-            nextId: 0,
+                // {id:1 content:"Task1", done:false}
+            ]
         }
 
 
     }
 
-
-    deleteCompletedTasksHandler = () => {
-        const copiedTodos = [...this.state.todos];
-        const updateTodos = copiedTodos.filter(todo => {
-            return todo.done === false;
-        });
-        this.setState({todos: updateTodos});
+    // fetching todos from db.json
+    fetchData = (url) => {
+        fetch(url)
+            .then((response) => {
+                console.log(response);
+                return response
+            })
+            .then((response) => response.json())
+            .then((todos) => this.setState({todos: todos}))
+            .catch((error) => console.error(error));
     };
 
-    addTodoHandler = (content_changed) => {
-        console.log("inside of add todo");
+    //GET TODOS
 
-        this.setState({
-            todos: [...this.state.todos,
-                {
-                    id: this.state.nextId + 1,
-                    content: content_changed,
-                    done: false
-                }
-            ],
-            nextId: this.state.nextId + 1
-        });
+    fetchDataHandler = () => {
+        this.fetchData('http://localhost:3000/todos')
     };
 
-    deleteTodoHandler = (id) => {
-        const copiedTodos = [...this.state.todos];
-        const updateTodos = copiedTodos.filter(todo => {
-            return todo.id !== id
-        });
-        this.setState({todos: updateTodos});
+
+    componentWillMount = () => {
+        this.fetchData('http://localhost:3000/todos');
+        console.log('component will mount');
+        console.log(this.state.todos);
     };
 
-    updateTodoHandler = (event, id) => {
+
+    // these method belows are used for CRUD of todos on json-server, not state.
+
+    //POST
+
+    postTodoHandler = (content_input) => {
+        fetch('http://localhost:3000/todos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'content': content_input,
+                'done': false
+            })
+        }).then(res => res.json())
+            .then(console.log())
+            .then(() => this.fetchDataHandler());
+    };
+
+    //PUT
+
+    putTodoContentHandler = (event, todo_id, done_stats) => {
         const todoIndex = this.state.todos.findIndex(todo => {
-            return todo.id === id;
+            return todo.id === todo_id;
         });
         const updatedTodo = {
             ...this.state.todos[todoIndex]
@@ -63,29 +75,106 @@ class App extends Component {
         todos[todoIndex] = updatedTodo;
 
         this.setState({todos: todos});
+
+        let updated_content = event.target.value;
+
+        fetch('http://localhost:3000/todos/' + todo_id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'content': updated_content,
+                'done': done_stats
+            })
+        }).then(res => res.json())
+            .then(console.log)
+            .then(() => this.fetchDataHandler());
     };
 
-    toggleStatusHandler = (id) => {
 
-        //find todoItem which I want to change
-        const todoIndex = this.state.todos.findIndex(todo => {
-            return todo.id === id;
+    putTodoStatusHandler = (todo_id, current_content, done_stats) => {
+        fetch('http://localhost:3000/todos/' + todo_id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'content': current_content,
+                'done': !done_stats
+            })
+        }).then(res => res.json())
+            .then(console.log)
+            .then(() => this.fetchDataHandler());
+    };
+
+    deleteTodoHandler = (todo_id) => {
+        fetch('http://localhost:3000/todos/' + todo_id, {
+            method: 'DELETE'
+        }).then(() =>this.fetchDataHandler())
+            .then(console.log)
+
+    };
+
+
+//Todo: fetchを調べてフィルター機能を作り、done=trueのものだけ取り出す。
+
+    deleteCompletedTasksHandler = () => {
+        const copiedTodos = [...this.state.todos];
+        const updateTodos = copiedTodos.filter(todo => {
+            return todo.done === false;
         });
-
-        const updatedTodo = {
-            ...this.state.todos[todoIndex]
-        };
-
-        //change done status
-        const currentDoneStatus = updatedTodo.done; //false
-
-        updatedTodo.done = !currentDoneStatus; //false -> true
-
-        //save the change above safely
-        const todos = [...this.state.todos];
-        todos[todoIndex] = updatedTodo;
-        this.setState({todos: todos});
+        this.setState({todos: updateTodos});
     };
+
+    // below methods are used with state.
+
+    // addTodoHandler = (content_changed) => {
+    //     console.log("inside of add todo");
+    //
+    //     this.setState({
+    //         todos: [...this.state.todos,
+    //             {
+    //                 id: this.state.nextId + 1,
+    //                 content: content_changed,
+    //                 done: false
+    //             }
+    //         ],
+    //         nextId: this.state.nextId + 1
+    //     });
+    // };
+
+
+    // deleteTodoHandler = (id) => {
+    //     const copiedTodos = [...this.state.todos];
+    //     const updateTodos = copiedTodos.filter(todo => {
+    //         return todo.id !== id
+    //     });
+    //     this.setState({todos: updateTodos});
+    // };
+
+
+    // toggleStatusHandler = (id) => {
+    //
+    //     //find todoItem which I want to change
+    //     const todoIndex = this.state.todos.findIndex(todo => {
+    //         return todo.id === id;
+    //     });
+    //
+    //     const updatedTodo = {
+    //         ...this.state.todos[todoIndex]
+    //     };
+    //
+    //     //change done status
+    //     const currentDoneStatus = updatedTodo.done; //false
+    //
+    //     updatedTodo.done = !currentDoneStatus; //false -> true
+    //
+    //     //save the change above safely
+    //     const todos = [...this.state.todos];
+    //     todos[todoIndex] = updatedTodo;
+    //     this.setState({todos: todos});
+    // };
 
 
     render() {
@@ -109,16 +198,24 @@ class App extends Component {
                 <div className="App">
                     <FormContainer
                         todos={this.state.todos}
-                        // changed={(event) => this.contentChangedHandler(event, todo.id)}
+
                         deleteCompletedTasksHandler={this.deleteCompletedTasksHandler}
-                        addTodoHandler={this.addTodoHandler}
+
+                        //CRUD method
+                        postTodoHandler={this.postTodoHandler}
                         deleteTodoHandler={this.deleteTodoHandler}
+                        putTodoContentHandler={this.putTodoContentHandler}
+                        putTodoStatusHandler={this.putTodoStatusHandler}
+                        fetchDataHandler={this.fetchDataHandler}
+
                         updateTodoHandler={this.updateTodoHandler}
-                        toggleStatusHandler={this.toggleStatusHandler}
+                        //Sort out todos
                         completedTodos={completedTodos}
                         completedTodosNum={completedTodosNum}
                         notCompletedTodos={notCompletedTodos}
                         notCompletedTodosNum={notCompletedTodosNum}
+
+
                     />
                 </div>
             </BrowserRouter>

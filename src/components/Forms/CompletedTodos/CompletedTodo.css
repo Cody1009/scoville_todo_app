@@ -19,3 +19,10 @@
   font-family: 'Roboto', sans-serif;
   color: gray;
 }
+
+.done{
+  color: gray;
+  font-family:  'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+}

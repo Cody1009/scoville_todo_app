@@ -28,23 +28,22 @@ const styles = theme => ({
 const completedTodos = (props) => {
     const {classes} = props;
     const completed_todos_list = props.completedTodos.map(todo => {
-
         return (
             <div key={todo.id} className="todo-card">
                 <Checkbox
                     className={classes.checkBox}
                     onChange={() => {
-                        props.toggleStatusHandler(todo.id)
+                        props.putTodoStatusHandler(todo.id, todo.content, todo.done);
                     }}
                     color="primary"
+                    checked={todo.done}
                 />
 
                 <TextField
                     className={classes.textField}
                     label="Todo"
                     value={todo.content}
-                    onChange={(event) => props.updateTodoHandler(event, todo.id)}
-
+                    onChange={(event) => props.putTodoContentHandler(event, todo.id, todo.done)}
                 />
 
                 <Button
@@ -55,6 +54,7 @@ const completedTodos = (props) => {
                     }}>
                     delete
                 </Button>
+
             </div>
 
         );

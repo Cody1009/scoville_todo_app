@@ -26,14 +26,17 @@ class headerForm extends Component {
     handleSubmitKeyPress =(event)=>{
         if(event.key === 'Enter'){
             event.preventDefault();
-            this.props.addTodoHandler(this.state.content);
+            this.props.postTodoHandler(this.state.content);
             this.setState({content: ''});
         }
+
+
     };
 
     render() {
         const {classes} = this.props;
-
+        console.log('inside of Header');
+        console.log(this.props);
 
         return (
 
@@ -45,7 +48,6 @@ class headerForm extends Component {
                         onChange={this.handleChange}
                         placeholder="What needs to be done?"
                         autoFocus
-
                     />
                 </form>
             </div>

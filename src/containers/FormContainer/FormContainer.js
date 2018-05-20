@@ -8,7 +8,6 @@ import NotCompletedTodos from '../../components/Forms/NotCompletedTodos/NotCompl
 import {Route} from 'react-router-dom';
 
 const FormContainer = (props) => {
-    console.log(props);
 
 
     return (
@@ -18,7 +17,8 @@ const FormContainer = (props) => {
             <Route path="/"
                    render={() => (
                        <HeaderForm
-                           addTodoHandler={props.addTodoHandler}
+                           postTodoHandler={props.postTodoHandler}
+                           fetchDataHandler={props.fetchDataHandler}
                        />
                    )}
             />
@@ -29,8 +29,9 @@ const FormContainer = (props) => {
                        <ListForm
                            todos={props.todos}
                            deleteTodoHandler={props.deleteTodoHandler}
-                           updateTodoHandler={props.updateTodoHandler}
-                           toggleStatusHandler={props.toggleStatusHandler}
+                           putTodoContentHandler={props.putTodoContentHandler}
+                           putTodoStatusHandler={props.putTodoStatusHandler}
+
                        />)
                    }
             />
@@ -41,8 +42,9 @@ const FormContainer = (props) => {
                        <CompletedTodos
                            completedTodos={props.completedTodos}
                            deleteTodoHandler={props.deleteTodoHandler}
-                           updateTodoHandler={props.updateTodoHandler}
-                           toggleStatusHandler={props.toggleStatusHandler}
+                           putTodoContentHandler={props.putTodoContentHandler}
+                           putTodoStatusHandler={props.putTodoStatusHandler}
+
                            notCompletedTodosNum={props.notCompletedTodosNum}
                        />
                    )}
@@ -54,8 +56,8 @@ const FormContainer = (props) => {
                        <NotCompletedTodos
                            notCompletedTodos={props.notCompletedTodos}
                            deleteTodoHandler={props.deleteTodoHandler}
-                           updateTodoHandler={props.updateTodoHandler}
-                           toggleStatusHandler={props.toggleStatusHandler}
+                           putTodoContentHandler={props.putTodoContentHandler}
+                           putTodoStatusHandler={props.putTodoStatusHandler}
                            notCompletedTodosNum={props.notCompletedTodosNum}
                        />
                    )}
