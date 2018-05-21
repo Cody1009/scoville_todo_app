@@ -2,7 +2,7 @@
   "todos": [
     {
       "content": "task3",
-      "done": false,
+      "done": true,
       "id": 3
     },
     {
@@ -16,7 +16,7 @@
       "id": 5
     },
     {
-      "content": "task4",
+      "content": "へあ",
       "done": false,
       "id": 6
     }

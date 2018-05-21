@@ -1,1 +1,0 @@
-{"dependencies":[{"name":"_css_loader"}],"generated":{"css":".form-container{\n  width: 800px;\n  height: 800px;\n  margin:0 auto ;\n}","js":"\n        var reloadCSS = require('_css_loader');\n        module.hot.dispose(reloadCSS);\n        module.hot.accept(reloadCSS);\n      "},"hash":"93f71bfa2c89ab4fe23e5976e5719d6e","cacheData":{}}
