@@ -1,10 +1,9 @@
 import React from 'react';
 import './FormContainer.css';
 import HeaderForm from '../../components/Forms/HeaderForm/HeaderForm';
-import ListForm from '../../components/Forms/ListForm/ListForm';
+import TodosForm from '../../components/Forms/TodosForm/TodosForm';
 import FooterForm from '../../components/Forms/FooterForm/FooterForm';
-import CompletedTodos from '../../components/Forms/CompletedTodos/CompletedTodos';
-import NotCompletedTodos from '../../components/Forms/NotCompletedTodos/NotCompletedTodos';
+
 import {Route} from 'react-router-dom';
 
 const FormContainer = (props) => {
@@ -18,7 +17,6 @@ const FormContainer = (props) => {
                    render={() => (
                        <HeaderForm
                            postTodoHandler={props.postTodoHandler}
-                           fetchDataHandler={props.fetchDataHandler}
                        />
                    )}
             />
@@ -26,11 +24,10 @@ const FormContainer = (props) => {
 
             <Route path="/" exact
                    render={() => (
-                       <ListForm
+                       <TodosForm
                            todos={props.todos}
                            deleteTodoHandler={props.deleteTodoHandler}
-                           putTodoContentHandler={props.putTodoContentHandler}
-                           putTodoStatusHandler={props.putTodoStatusHandler}
+                           putTodoHandler={props.putTodoHandler}
 
                        />)
                    }
@@ -39,13 +36,10 @@ const FormContainer = (props) => {
 
             <Route path="/completed-todos" exact
                    render={() => (
-                       <CompletedTodos
-                           completedTodos={props.completedTodos}
-                           deleteTodoHandler={props.deleteTodoHandler}
-                           putTodoContentHandler={props.putTodoContentHandler}
-                           putTodoStatusHandler={props.putTodoStatusHandler}
-
-                           notCompletedTodosNum={props.notCompletedTodosNum}
+                       <TodosForm
+                        todos={props.completedTodos}
+                        deleteTodoHandler={props.deleteTodoHandler}
+                        putTodoHandler={props.putTodoHandler}
                        />
                    )}
             />
@@ -53,25 +47,17 @@ const FormContainer = (props) => {
 
             <Route path="/not-completed-todos" exact
                    render={() => (
-                       <NotCompletedTodos
-                           notCompletedTodos={props.notCompletedTodos}
-                           deleteTodoHandler={props.deleteTodoHandler}
-                           putTodoContentHandler={props.putTodoContentHandler}
-                           putTodoStatusHandler={props.putTodoStatusHandler}
-                           notCompletedTodosNum={props.notCompletedTodosNum}
+                       <TodosForm
+                       todos={props.notCompletedTodos}
+                       deleteTodoHandler={props.deleteTodoHandler}
+                       putTodoHandler={props.putTodoHandler}
                        />
+
                    )}
             />
 
             {/* #############      FOOTER     ############ */}
-            <Route path="/"
-                   render={() => (
-                       <FooterForm
-                           deleteCompletedTasksHandler={props.deleteCompletedTasksHandler}
-                           completedTodosNum={props.completedTodosNum}
-                       />
-                   )}
-            />
+            <Route path="/" component={FooterForm}/>
 
 
 

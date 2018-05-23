@@ -59,17 +59,6 @@ const FooterForm = (props)=>{
 
                 </Link>
 
-                {props.completedTodosNum > 0 ?
-                    <Button
-                        variant="raised"
-                        className={classes.button}
-                        onClick={props.deleteCompletedTasksHandler}
-                    >
-                        Delete Completed Tasks
-                    </Button>
-                        : null}
-
-
             </div>
         )
 

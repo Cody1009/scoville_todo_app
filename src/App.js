@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import FormContainer from './containers/FormContainer/FormContainer';
 import {BrowserRouter} from 'react-router-dom';
+import {deleteTodo, fetchDataHandler, postTodo, putTodo} from './API/api';
 
 class App extends Component {
     constructor() {
@@ -11,186 +12,69 @@ class App extends Component {
             ]
         }
 
+    }
+
+    componentDidMount = () => {
+        fetchDataHandler()
+            .then((todos) => this.setState({todos: todos}))
+            .catch((error) => console.error(error));
+
+    };
+
+    postTodoHandler = (contentInput) => {
+        postTodo(contentInput)
+            .then((json) => {
+                this.setState((prevState) => {
+                    return {
+                        todos: [...prevState.todos, json]
+                    }
+                })
+            })
+    }
+
+    putTodoHandler = ({content: eVal, id: todoId, done: doneStats}) => {
+        // get ready for State change
+        const todoIndex = this.state.todos.findIndex(todo => {
+            return todo.id === todoId;
+        });
+        const targetTodo = {
+            ...this.state.todos[todoIndex]
+        };
+        targetTodo.content = eVal;
+        targetTodo.done = doneStats;
+        const updatedTodos = [...this.state.todos];
+        updatedTodos[todoIndex] = targetTodo;
+
+        //updating db.json and set State
+        putTodo({content: eVal, id: todoId, done: doneStats})
+            .then(this.setState({todos: updatedTodos}));
 
     }
 
-    // fetching todos from db.json
-    fetchData = (url) => {
-        fetch(url)
-            .then((response) => {
-                console.log(response);
-                return response
+    deleteTodoHandler = (todoId) => {
+        deleteTodo(todoId)
+            .then(() => {
+                this.setState((prevState) => {
+                    let copiedTodos = [...prevState.todos];
+                    return {
+                        todos: copiedTodos.filter(todo => {
+                            return todo.id !== todoId
+                        })
+                    }
+                });
             })
-            .then((response) => response.json())
-            .then((todos) => this.setState({todos: todos}))
-            .catch((error) => console.error(error));
-    };
-
-    //GET TODOS
-
-    fetchDataHandler = () => {
-        this.fetchData('http://localhost:3000/todos')
-    };
-
-
-    componentWillMount = () => {
-        this.fetchData('http://localhost:3000/todos');
-        console.log('component will mount');
-        console.log(this.state.todos);
-    };
-
-
-    // these method belows are used for CRUD of todos on json-server, not state.
-
-    //POST
-
-    postTodoHandler = (content_input) => {
-        fetch('http://localhost:3000/todos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'content': content_input,
-                'done': false
-            })
-        }).then(res => res.json())
-            .then(console.log())
-            .then(() => this.fetchDataHandler());
-    };
-
-    //PUT
-
-    putTodoContentHandler = (event, todo_id, done_stats) => {
-        const todoIndex = this.state.todos.findIndex(todo => {
-            return todo.id === todo_id;
-        });
-        const updatedTodo = {
-            ...this.state.todos[todoIndex]
-        };
-
-        updatedTodo.content = event.target.value;
-
-        const todos = [...this.state.todos];
-        todos[todoIndex] = updatedTodo;
-
-        this.setState({todos: todos});
-
-        let updated_content = event.target.value;
-
-        fetch('http://localhost:3000/todos/' + todo_id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'content': updated_content,
-                'done': done_stats
-            })
-        }).then(res => res.json())
-            .then(console.log)
-            .then(() => this.fetchDataHandler());
-    };
-
-
-    putTodoStatusHandler = (todo_id, current_content, done_stats) => {
-        fetch('http://localhost:3000/todos/' + todo_id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'content': current_content,
-                'done': !done_stats
-            })
-        }).then(res => res.json())
-            .then(console.log)
-            .then(() => this.fetchDataHandler());
-    };
-
-    deleteTodoHandler = (todo_id) => {
-        fetch('http://localhost:3000/todos/' + todo_id, {
-            method: 'DELETE'
-        }).then(() =>this.fetchDataHandler())
-            .then(console.log)
-
-    };
-
-
-//Todo: fetchを調べてフィルター機能を作り、done=trueのものだけ取り出す。
-
-    deleteCompletedTasksHandler = () => {
-        const copiedTodos = [...this.state.todos];
-        const updateTodos = copiedTodos.filter(todo => {
-            return todo.done === false;
-        });
-        this.setState({todos: updateTodos});
-    };
-
-    // below methods are used with state.
-
-    // addTodoHandler = (content_changed) => {
-    //     console.log("inside of add todo");
-    //
-    //     this.setState({
-    //         todos: [...this.state.todos,
-    //             {
-    //                 id: this.state.nextId + 1,
-    //                 content: content_changed,
-    //                 done: false
-    //             }
-    //         ],
-    //         nextId: this.state.nextId + 1
-    //     });
-    // };
-
-
-    // deleteTodoHandler = (id) => {
-    //     const copiedTodos = [...this.state.todos];
-    //     const updateTodos = copiedTodos.filter(todo => {
-    //         return todo.id !== id
-    //     });
-    //     this.setState({todos: updateTodos});
-    // };
-
-
-    // toggleStatusHandler = (id) => {
-    //
-    //     //find todoItem which I want to change
-    //     const todoIndex = this.state.todos.findIndex(todo => {
-    //         return todo.id === id;
-    //     });
-    //
-    //     const updatedTodo = {
-    //         ...this.state.todos[todoIndex]
-    //     };
-    //
-    //     //change done status
-    //     const currentDoneStatus = updatedTodo.done; //false
-    //
-    //     updatedTodo.done = !currentDoneStatus; //false -> true
-    //
-    //     //save the change above safely
-    //     const todos = [...this.state.todos];
-    //     todos[todoIndex] = updatedTodo;
-    //     this.setState({todos: todos});
-    // };
+    }
 
 
     render() {
         //
-        const completedTodos = this.state.todos.filter(todo => {
+        let completedTodos = this.state.todos.filter(todo => {
             return todo.done === true;
         });
 
-        const notCompletedTodos = this.state.todos.filter(todo => {
+        let notCompletedTodos = this.state.todos.filter(todo => {
             return todo.done === false;
         });
-
-        const completedTodosNum = completedTodos.length;
-
-        const notCompletedTodosNum = notCompletedTodos.length;
-
 
         return (
 
@@ -199,23 +83,17 @@ class App extends Component {
                     <FormContainer
                         todos={this.state.todos}
 
-                        deleteCompletedTasksHandler={this.deleteCompletedTasksHandler}
-
-                        //CRUD method
+                        //POST
                         postTodoHandler={this.postTodoHandler}
-                        deleteTodoHandler={this.deleteTodoHandler}
-                        putTodoContentHandler={this.putTodoContentHandler}
-                        putTodoStatusHandler={this.putTodoStatusHandler}
-                        fetchDataHandler={this.fetchDataHandler}
 
-                        updateTodoHandler={this.updateTodoHandler}
+                        //PUT
+                        putTodoHandler={this.putTodoHandler}
+
+                        //DELETE
+                        deleteTodoHandler={this.deleteTodoHandler}
                         //Sort out todos
                         completedTodos={completedTodos}
-                        completedTodosNum={completedTodosNum}
                         notCompletedTodos={notCompletedTodos}
-                        notCompletedTodosNum={notCompletedTodosNum}
-
-
                     />
                 </div>
             </BrowserRouter>

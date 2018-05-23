@@ -1,5 +1,5 @@
 import React from 'react';
-import './ListForm.css'
+import './TodosForm.css'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -25,22 +25,21 @@ const styles = theme => ({
 
 });
 
-const listForm = (props) => {
+const TodosForm = (props) => {
     const {classes} = props;
-    console.log('inside of list form');
-    console.log(props.todos);
     const todos_list = props.todos.map(todo => {
-        console.log('inside of todos_list generator');
-        console.log(todo);
         return (
 
             <div key={todo.id} className="todo-card">
                 <Checkbox
                     className={classes.checkBox}
-                    onChange={() => {
-                        props.putTodoStatusHandler(todo.id, todo.content, todo.done);
+                    onChange={(event) => props.putTodoHandler({
+                        content:todo.content,
+                        id:todo.id,
+                        done: !todo.done
 
-                    }}
+                    })
+                    }
                     color="primary"
                     checked={todo.done}
                 />
@@ -49,16 +48,20 @@ const listForm = (props) => {
                     className={classes.textField}
                     label="Todo"
                     value={todo.content}
-                    onChange={(event) => props.putTodoContentHandler(event, todo.id, todo.done)}
+                    onChange={(event) => props.putTodoHandler({
+                        content:event.target.value,
+                        id:todo.id,
+                        done:todo.done
+                    })}
 
                 />
 
                 <Button
-                        className={classes.button}
-                        key={todo.id}
-                        onClick={() => {
-                            props.deleteTodoHandler(todo.id)
-                        }}>
+                    className={classes.button}
+                    key={todo.id}
+                    onClick={() => {
+                        props.deleteTodoHandler(todo.id)
+                    }}>
                     delete
                 </Button>
             </div>
@@ -74,8 +77,11 @@ const listForm = (props) => {
 
 };
 
-listForm.propTypes={
+TodosForm.propTypes={
     classes: PropTypes.object.isRequired,
+    todos: PropTypes.array.isRequired,
+    deleteTodoHandler: PropTypes.func.isRequired,
+    putTodoHandler: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(listForm);
+export default withStyles(styles)(TodosForm);
