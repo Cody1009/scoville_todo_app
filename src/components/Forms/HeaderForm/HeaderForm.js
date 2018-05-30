@@ -19,8 +19,8 @@ class HeaderForm extends Component {
     }
 
     handleChange=(event)=>{
-        const content_input = event.target.value;
-        this.setState({content: content_input});
+        const contentInput = event.target.value;
+        this.setState({content: contentInput});
     };
 
     handleSubmitKeyPress =(event)=>{
