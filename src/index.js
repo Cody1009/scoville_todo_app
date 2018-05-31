@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import {Provider} from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import todoReducer from './store/reducers/manipulateTodoState';
+import todoReducer from './store/reducers/todos';
 
 import App from './App';
 

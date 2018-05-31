@@ -1,12 +1,7 @@
 {
   "todos": [
     {
-      "content": "this is changed",
-      "done": false,
-      "id": 4
-    },
-    {
-      "content": "task3",
+      "content": "task3dfa",
       "done": true,
       "id": 6
     }

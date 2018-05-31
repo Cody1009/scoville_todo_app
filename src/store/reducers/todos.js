@@ -2,7 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 import {updateObject} from "../utility";
 
 const initialState = {
-    isFetching: false,
     todos: [
         // {id:1 content:"Task1", done:false}
     ]
@@ -13,20 +12,19 @@ const initialState = {
 // state refers to previous state.
 const getTodoStart =(state, action) =>{
     // setting state by updateObject
-    return updateObject(state,{ isFetching: true});
+    return state;
 };
 
 
 const getTodoFail =(state, action) =>{
 
-    return updateObject(state,{ isFetching: false});
+    return state;
 };
 
 
 const getTodoSuccess =(state, action) =>{
     // adding todos newly fetched, to previous state
     return updateObject(state,{
-        isFetching: false,
         todos: action.todos
     });
 };
@@ -35,20 +33,20 @@ const getTodoSuccess =(state, action) =>{
 
 const postTodoStart =(state, action) =>{
     // setting state by updateObject
-    return updateObject(state,{ isFetching: true});
+    return state;
 };
 
 
 const postTodoFail =(state, action) =>{
 
-    return updateObject(state,{ isFetching: false});
+    return state;
 };
 
 
 const postTodoSuccess =(state, action) =>{
     // adding todos newly fetched, to previous state
     return updateObject(state,{
-        isFetching: false,
+
         todos: [...state.todos, action.postedTodo]
     });
 };
@@ -57,13 +55,13 @@ const postTodoSuccess =(state, action) =>{
 
 const putTodoStart =(state, action) =>{
     // setting state by updateObject
-    return updateObject(state,{ isFetching: true});
+    return state;
 };
 
 
 const putTodoFail =(state, action) =>{
 
-    return updateObject(state,{ isFetching: false});
+    return state;
 };
 
 
@@ -92,7 +90,7 @@ const putTodoSuccess =(state, action) =>{
     updatedTodos[todoIndex] = targetTodo;
 
     return updateObject(state,{
-        isFetching: false,
+
         todos: updatedTodos
     });
 };
@@ -104,20 +102,20 @@ const putTodoSuccess =(state, action) =>{
 
 const deleteTodoStart =(state, action) =>{
     // setting state by updateObject
-    return updateObject(state,{ isFetching: true});
+    return state;
 };
 
 
 const deleteTodoFail =(state, action) =>{
 
-    return updateObject(state,{ isFetching: false});
+    return state;
 };
 
 
 const deleteTodoSuccess =(state, action) =>{
 
     return updateObject(state,{
-        isFetching: false,
+
         todos: [...state.todos].filter( todo =>{
             return todo.id !== action.todoId
         })
