@@ -11,7 +11,7 @@ const styles = theme => ({
     }
 });
 
-class headerForm extends Component {
+class HeaderForm extends Component {
 
     constructor(props) {
         super(props);
@@ -35,8 +35,6 @@ class headerForm extends Component {
 
     render() {
         const {classes} = this.props;
-        console.log('inside of Header');
-        console.log(this.props);
 
         return (
 
@@ -55,8 +53,9 @@ class headerForm extends Component {
     }
 }
 
-headerForm.propTypes={
+HeaderForm.propTypes={
     classes: PropTypes.object.isRequired,
+    postTodoHandler: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(headerForm);
+export default withStyles(styles)(HeaderForm);
