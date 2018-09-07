@@ -19,13 +19,18 @@
   "dependencies": {
     "@material-ui/core": "^1.0.0-rc.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "history": "^4.7.2",
     "json-server": "^0.12.2",
     "material": "^0.2.6",
     "material-ui": "^0.20.1",
     "parcel": "^1.8.1",
     "react": "^15.4.0 || ^16.0.0",
     "react-dom": "^15.4.0 || ^16.0.0",
+    "react-redux": "^5.0.7",
+    "react-router-redux": "^5.0.0-alpha.9",
     "react-tap-event-plugin": "^3.0.2",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
     "ui": "^0.2.4"
   },
   "devDependencies": {
